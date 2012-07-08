@@ -15,5 +15,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^sky/solarsystem', "skyguide.views.solarsystem")
+    url(r'^sky/solarsystem', "skyguide.views.solarsystem"),
+    url(r'^sky/json/solarsystem', "skyguide.views.solarsystem_json"),
+    url(r'^sky$', 'skyguide.views.client')
 )
