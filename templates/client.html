@@ -1,8 +1,16 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="http://cdn.sencha.io/extjs/4.1.0.b1/resources/css/ext-all.css">
-    <script type="text/javascript" src="http://cdn.sencha.io/extjs/4.1.0.b1/ext-all.js"></script>
 
+    <style type="text/css">
+
+        .dataCell {
+            padding: 3;
+        }
+
+    </style>
+
+    <script type="text/javascript" src="http://cdn.sencha.io/extjs/4.1.0.b1/ext-all.js"></script>
     <script type="text/javascript">
 
         Ext.onReady( function() {
@@ -12,12 +20,36 @@
                success: function(result) {
                    console.log('loaded json data');
                    var data = Ext.decode(result.responseText);
+                   showData(data.bodies)
+               },
+               failure: function(result){
+                   console.log('json call failed');
                }
             });
         });
 
+        function showData( bodiesDataList ) {
+            var template = Ext.create('Ext.XTemplate',
+                '<table>',
+                '<tpl for=".">',
+                '<tr>',
+                '<td class="dataCell">{name}</td>',
+                '<td class="dataCell" align="right">{alt}</td>',
+                '<td class="dataCell" align="right">{az}</td>',
+                '</tr>',
+                '</tpl>',
+                '</table>'
+            );
+            var targetEl = Ext.get('content');
+            template.overwrite(targetEl, bodiesDataList);
+        }
+
     </script>
 </head>
+<body>
 
+    <div id="content" />
+
+</body>
 
 </html>
